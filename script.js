@@ -1,130 +1,144 @@
 (async function () {
-  // Load employee data from data.json
-  const response = await fetch("data.json");
-  const data = await response.json();
-  let employees = data;
-  let selectedEmployeeId = employees[0]?.id || -1;
-  let selectedEmployee = employees[0] || {};
+    const data = await fetch("data.json");
+    const res = await data.json();
 
-  // Get elements from the page
-  const employeeList = document.querySelector(".employees__nlist");
-  const employeeInfo = document.querySelector(".employees__sinfo");
-  const createButton = document.querySelector(".createEmployee");
-  const modal = document.querySelector(".addEmployee");
-  const form = document.querySelector(".addEmployee_create");
-  const dobInput = document.querySelector(".addEmployee_dob");
+    let employees = res;
+    let selectedEmployeeId = employees[0].id;
+    let selectedEmployee = employees[0];
 
-  // Set max date of birth (minimum age 18)
-  const currentYear = new Date().getFullYear();
-  const monthDay = new Date().toISOString().slice(5, 10);
-  dobInput.max = (currentYear - 18) + "-" + monthDay;
+    const employeeList = document.querySelector(
+        ".employees__names--list"
+    );
+    const employeeInfo = document.querySelector(
+        ".employees__single--info"
+    );
 
-  // Show the add employee modal
-  createButton.addEventListener("click", function () {
-    modal.style.display = "flex";
-  });
+    // Add Employee - START
+    const createEmployee = document.querySelector(
+        ".createEmployee"
+    );
+    const addEmployeeModal =
+        document.querySelector(".addEmployee");
+    const addEmployeeForm = document.querySelector(
+        ".addEmployee_create"
+    );
 
-  // Hide modal when clicking outside the form
-  modal.addEventListener("click", function (event) {
-    if (event.target.className === "addEmployee") {
-      modal.style.display = "none";
-    }
-  });
-
-  // Handle add employee form submit
-  form.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    // Get form values
-    const formData = new FormData(form);
-    const newEmployee = {};
-    for (const [key, value] of formData.entries()) {
-      newEmployee[key] = value;
-    }
-
-    // Add ID and calculate age
-    const lastEmployee = employees[employees.length - 1];
-    newEmployee.id = lastEmployee ? lastEmployee.id + 1 : 1;
-    newEmployee.age = currentYear - parseInt(newEmployee.dob.slice(0, 4));
-    newEmployee.imageUrl = newEmployee.imageUrl || "gfg.png";
-
-    // Add to employee list
-    employees.push(newEmployee);
-    form.reset();
-    modal.style.display = "none";
-    renderEmployees();
-  });
-
-  // Handle click on employee list (select or delete)
-  employeeList.addEventListener("click", function (event) {
-    const clickedElement = event.target;
-    const parentId = clickedElement.parentNode.id || clickedElement.id;
-
-    // Select employee
-    if (clickedElement.tagName === "SPAN" && parentId !== selectedEmployeeId) {
-      selectedEmployeeId = parentId;
-      renderEmployees();
-      renderSingleEmployee();
-    }
-
-    // Delete employee
-    if (clickedElement.tagName === "I") {
-      employees = employees.filter(function (emp) {
-        return String(emp.id) !== parentId;
-      });
-
-      // If deleted employee was selected
-      if (String(selectedEmployeeId) === parentId) {
-        selectedEmployeeId = employees[0]?.id || -1;
-        selectedEmployee = employees[0] || {};
-        renderSingleEmployee();
-      }
-
-      renderEmployees();
-    }
-  });
-
-  // Show all employees in the list
-  function renderEmployees() {
-    employeeList.innerHTML = "";
-
-    employees.forEach(function (emp) {
-      const span = document.createElement("span");
-      span.className = "employees__names--item";
-      span.id = emp.id;
-
-      if (String(emp.id) === String(selectedEmployeeId)) {
-        span.classList.add("selected");
-        selectedEmployee = emp;
-      }
-
-      span.innerHTML = emp.firstName + " " + emp.lastName + 
-        ' <i class="employeeDelete">&#10060;</i>';
-
-      employeeList.appendChild(span);
+    createEmployee.addEventListener("click", () => {
+        addEmployeeModal.style.display = "flex";
     });
-  }
 
-  // Show details of selected employee
-  function renderSingleEmployee() {
-    if (selectedEmployeeId === -1) {
-      employeeInfo.innerHTML = "";
-      return;
-    }
+    addEmployeeModal.addEventListener("click", (e) => {
+        if (e.target.className === "addEmployee") {
+            addEmployeeModal.style.display = "none";
+        }
+    });
 
-    employeeInfo.innerHTML = `
-      <img src="${selectedEmployee.imageUrl}" />
-      <span class="employees__single--heading">
-        ${selectedEmployee.fName} ${selectedEmployee.lName} (${selectedEmployee.age})
-      </span>
-      <span>${selectedEmployee.address}</span>
-      <span>${selectedEmployee.email}</span>
-      <span>Mobile - ${selectedEmployee.contactNumber}</span>
-      <span>DOB - ${selectedEmployee.dob}</span>
-    `;
-  }
+    // Set Employee age to be entered minimum 18 years
+    const dobInput = document.querySelector(
+        ".addEmployee_create--dob"
+    );
+    dobInput.max = `${
+        new Date().getFullYear() - 18
+    }-${new Date().toISOString().slice(5, 10)}`;
 
-  // Initial render
-  renderEmployees();
-  renderSingleEmployee();
+    addEmployeeForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(addEmployeeForm);
+        const values = [...formData.entries()];
+        let empData = {};
+        values.forEach((val) => {
+            empData[val[0]] = val[1];
+        });
+        empData.id = employees[employees.length - 1].id + 1;
+        empData.age =
+            new Date().getFullYear() -
+            parseInt(empData.dob.slice(0, 4), 10);
+        empData.imageUrl =
+            empData.imageUrl ||
+"gfg.png";
+        employees.push(empData);
+        renderEmployees();
+        addEmployeeForm.reset();
+        addEmployeeModal.style.display = "none";
+    });
+    // Add Employee - END
+
+    // Select Employee Logic - START
+    employeeList.addEventListener("click", (e) => {
+        if (
+            e.target.tagName === "SPAN" &&
+            selectedEmployeeId !== e.target.id
+        ) {
+            selectedEmployeeId = e.target.id;
+            renderEmployees();
+            renderSingleEmployee();
+        }
+        // Employee Delete Logic - START
+        if (e.target.tagName === "I") {
+            employees = employees.filter(
+                (emp) =>
+                    String(emp.id) !==
+                    e.target.parentNode.id
+            );
+            if (
+                String(selectedEmployeeId) ===
+                e.target.parentNode.id
+            ) {
+                selectedEmployeeId = employees[0]?.id || -1;
+                selectedEmployee = employees[0] || {};
+                renderSingleEmployee();
+            }
+            renderEmployees();
+        }
+        // Employee Delete Logic - END
+    });
+    // Select Employee Logic - END
+
+    // Render All Employees Logic - START
+    const renderEmployees = () => {
+        employeeList.innerHTML = "";
+        employees.forEach((emp) => {
+            const employee = document.createElement("span");
+            employee.classList.add(
+                "employees__names--item"
+            );
+            if (
+                parseInt(selectedEmployeeId, 10) === emp.id
+            ) {
+                employee.classList.add("selected");
+                selectedEmployee = emp;
+            }
+            employee.setAttribute("id", emp.id);
+            employee.innerHTML = `${emp.firstName} ${emp.lastName} 
+                <i class="employeeDelete">&#10060;</i>`;
+            employeeList.append(employee);
+        });
+    };
+    // Render All Employees Logic - END
+
+    // Render Single Employee Logic - START
+    const renderSingleEmployee = () => {
+        // Employee Delete Logic - START
+        if (selectedEmployeeId === -1) {
+            employeeInfo.innerHTML = "";
+            return;
+        }
+        // Employee Delete Logic - END
+
+        employeeInfo.innerHTML = `
+        <img src="${selectedEmployee.imageUrl}" />
+        <span class="employees__single--heading">
+        ${selectedEmployee.firstName} ${selectedEmployee.lastName} 
+            (${selectedEmployee.age})
+        </span>
+        <span>${selectedEmployee.address}</span>
+        <span>${selectedEmployee.email}</span>
+        <span>Mobile - ${selectedEmployee.contactNumber}</span>
+        <span>DOB - ${selectedEmployee.dob}</span>
+      `;
+    };
+    // Render Single Employee Logic - END
+
+    renderEmployees();
+    if (selectedEmployee) renderSingleEmployee();
 })();

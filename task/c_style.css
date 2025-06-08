@@ -155,5 +155,7 @@ body{
     height: 175px;
     background-color: rgb(162, 162, 243);
     position: absolute;
-    left: 175px;
+    left: 174px;
+     transform-origin: bottom center; 
+  transition: transform 0.05s linear;
 }

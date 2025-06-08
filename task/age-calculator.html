@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Age Calculator</h1>
+  <p>Select your date of birth:</p>
+  <input type="date" id="dob">
+  <button onclick="calculateAge()">Calculate Age</button>
+
+  <div id="result"></div>
+
+  <script>
+    function calculateAge() {
+      const dobInput = document.getElementById("dob").value;
+
+      if (!dobInput) {
+        document.getElementById("result").textContent = "Please enter your date of birth.";
+        return;
+      }
+
+      const dob = new Date(dobInput);
+      const today = new Date();
+
+      let years = today.getFullYear() - dob.getFullYear();
+      let months = today.getMonth() - dob.getMonth();
+      let days = today.getDate() - dob.getDate();
+
+      // If birth month hasn't occurred yet
+      if (months < 0 || (months === 0 && days < 0)) {
+        years--;
+        months += 12;
+      }
+
+      // Adjust days
+      if (days < 0) {
+        // Get the number of days in the previous month
+        const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+        days += prevMonth.getDate();
+        months--;
+      }
+
+      document.getElementById("result").textContent = 
+        `You are ${years} year(s), ${months} month(s), and ${days} day(s) old.`;
+    }
+  </script>
+
+</body>
+</html>

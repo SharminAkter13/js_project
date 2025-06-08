@@ -1,9 +1,14 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
+h1{
+    margin-left: 560px;
+    color: rgb(15, 104, 74);
+}
 .clock-dial{
     width: 500px;
     height: 500px;
+    background-color: rgba(176, 246, 235, 0.808);
     border: 20px solid rgb(24, 114, 84);
     border-radius: 50%;
     margin: 0 auto;
@@ -77,7 +82,7 @@ body{
 .brand{
     font-size: 20px;
     font-weight: bold;
-    color: rgb(13, 13, 134);
+    color: rgb(47, 47, 176);
     position: absolute;
     top: 90px;
     left: 35.5%;
@@ -97,18 +102,18 @@ body{
 .minute-hand .hand{
     width: 5px;
     height: 200px;
-    background-color: blue;
+    background-color: rgb(3, 3, 44);
     position: absolute;
     left: 198px;
 }
 .minute-hand .arrow{
     font-size: 30px;
     font-weight: bold;
-    color: blue;
+    color: rgb(1, 1, 24);
     transform: rotate(180deg);
     position: absolute;
-    left: 190px;
-    top: -7px;
+    left: 191px;
+    top: -11px;
 }
 
 .hour_hand-wrapper{
@@ -125,18 +130,18 @@ body{
 .hour-hand .hand{
     width: 5px;
     height: 150px;
-    background-color: blue;
+    background-color: rgb(1, 1, 24);
     position: absolute;
     left: 148px;
 }
 .hour-hand .arrow{
     font-size: 30px;
     font-weight: bold;
-    color: blue;
+    color: rgb(3, 3, 33);
     transform: rotate(180deg);
     position: absolute;
-    left: 140px;
-    top: -7px;
+    left: 141px;
+    top: -9px;
 }
 .second_hand-wrapper{
     width: 350px;
@@ -153,7 +158,7 @@ body{
 .second-hand .hand{
     width: 3px;
     height: 175px;
-    background-color: rgb(162, 162, 243);
+    background-color: rgb(45, 45, 56);
     position: absolute;
     left: 174px;
      transform-origin: bottom center; 

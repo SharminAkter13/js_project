@@ -3,6 +3,10 @@ body{
     text-align: center;
     margin-top: 50px;
 }
+h1{
+        color: rgb(151, 58, 238);
+
+}
 input,button{
     padding: 10px;
     font-size: 16px;

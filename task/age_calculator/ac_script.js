@@ -1,5 +1,5 @@
 function calculateAge(){
-    const dodInput= document.getElementById("dob").ariaValueMax;
+    const dobInput = document.getElementById("dob").value;
     
     if(!dobInput){
         document.getElementById("result").textContent = "Please enter your date of birth.";
@@ -22,8 +22,8 @@ function calculateAge(){
         days += prevMonth.getDate();
         months--;
     }
-    document.getElementById("result").textContent = "You are "+years+" year's "+months+" month's "+days+" day's old";
-    
-
+    document.getElementById("result").textContent = "You are " + years + " year(s), " + months + " month(s), and " + days + " day(s) old.";
 }
+
+
 

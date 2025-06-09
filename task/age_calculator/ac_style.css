@@ -3,8 +3,16 @@ body{
     text-align: center;
     margin-top: 50px;
 }
+.div1{
+    width: 400px;
+    height: 250px;
+    background-color: rgb(183, 183, 234);
+    margin: 0 auto;
+    border: 2px solid blue;
+    border-radius: 10px;
+}
 h1{
-        color: rgb(151, 58, 238);
+        color: rgb(11, 4, 119);
 
 }
 input,button{

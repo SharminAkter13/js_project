@@ -1,6 +1,6 @@
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f3f3f3;
+  background-color: rgb(220, 159, 69);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,11 +8,12 @@ body {
 }
 
 .calculator {
-  background-color: #222;
+  background-color: #df1b1b;
   padding: 20px;
   border-radius: 16px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   width: 300px;
+  height: 400px;
 }
 
 #display {

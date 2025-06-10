@@ -5,7 +5,7 @@ function Solve(val){
 function Result(){
   var num1 = document.getElementById("res").value;
   try{
-    var num2 = eval(num1.replace("x","*"));
+var num2 = eval(num1.replace("x", "*").replace(/%/g, "/100"));
     document.getElementById("res").value = num2;
   }catch{
     document.getElementById("res").value = "Error";

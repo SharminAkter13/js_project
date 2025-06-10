@@ -38,3 +38,8 @@ form #output{
   justify-content: flex-end;
   margin: 15px 0;
 }
+form #output input{
+  text-align: right;
+  flex: 1;
+  font-size: 25px;
+}

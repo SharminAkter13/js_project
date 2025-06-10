@@ -14,6 +14,8 @@
   background: #2c302c;
   padding: 20px;
   border-radius: 10px;
+  width:360px;
+  margin: 20px auto;
 }
 #content form input{
   border: 0;
@@ -42,6 +44,7 @@ form #output input{
   text-align: right;
   flex: 1;
   font-size: 25px;
+  padding: 10px;
 }
 .math{
   background-color: rgb(172, 43, 103);

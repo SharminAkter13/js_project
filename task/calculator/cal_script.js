@@ -2,7 +2,7 @@ function Solve(val){
   var v = document.getElementById("res");
   v.value += val;
 }
-function result(){
+function Result(){
   var num1 = document.getElementById("res").value;
   try{
     var num2 = eval(num1.replace("x","*"));

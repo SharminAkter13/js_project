@@ -1,0 +1,30 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(252, 232, 208);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    background-color: aliceblue;
+    padding: 25px;
+    width: 550px;
+    border-radius: 10px;
+}
+.todo-header{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding-left: 5px;
+}
+img{
+    margin: 15px;
+}

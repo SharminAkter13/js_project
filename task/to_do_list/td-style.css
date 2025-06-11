@@ -54,3 +54,28 @@ img{
   padding: 15px;
   background: rgb(219, 244, 244);
 }
+ul li{
+  list-style: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px;
+}
+li{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #edeef0;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+h5{
+  text-align: center;
+  margin-bottom: 10px;
+  color: green;
+}
+.todo-controls{
+  width: 25px;
+  height: 25px;
+  padding: 3px;
+  margin-right: 5px;
+}
